@@ -11,7 +11,7 @@ extern "C"{
     #include "redlib.h"
     #include "redlib.e"
 }
- 
+
 void greatestFixedPoint(vector<GraphNode*> graph, vector<bool> riskLabel, int edgeType){
 
 }
