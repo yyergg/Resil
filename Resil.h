@@ -11,7 +11,6 @@ class GraphNode{
     vector<bool> labels;
     vector<GraphEdge*> inEdges;
     vector<GraphEdge*> outEdges;
-
 };
 
 class GraphEdge{
