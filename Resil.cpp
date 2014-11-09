@@ -4,12 +4,14 @@
 #include <stdio.h>
 #include <vector>
 #include <string>
+#include <sstream>
 #include "Resil.h"
 using namespace::std;
+
 extern "C"{
-    #include "redcplugins.e"
-    #include "redlib.h"
-    #include "redlib.e"
+  #include "redcplugins.e"
+  #include "redlib.h"
+  #include "redlib.e"
 }
  
 void greatestFixedPoint(vector<GraphNode*> graph, vector<bool> riskLabel, int edgeType){
@@ -20,25 +22,56 @@ void leastFixedPoint(vector<GraphNode*> graph, vector<bool> riskLabel, int edgeT
 
 }
 
-GraphNode* readModel(){
+void readModel(char* infileName, vector<GraphNode*> &Nodes, vector<GraphEdge*> &Edges){
+  fstream infile;
+  int i;
+  int numNormalNode, numFailNode, numEdge;
+  infile.open(infileName, ios::in);
+  infile >> numNormalNode >> numFailNode >> numEdge;
+  
+  for(i=0;i<numNormalNode;i++){
+    string s;
+    stringstream ss(s);
+    ss << i;
+    GraphNode* newNode = new GraphNode();
+    newNode -> name = ss.str();
+    newNode -> isFail = false;
+    Nodes.push_back(newNode);
+  }
 
+  for(i=numNormalNode;i<numNormalNode+numFailNode;i++){
+    string s;
+    stringstream ss(s);
+    ss << i;
+    GraphNode* newNode = new GraphNode();
+    newNode -> name = ss.str();
+    newNode -> isFail = true;
+    Nodes.push_back(newNode);
+  }
 
+  for(i=0;i<numEdge;i++){
+    int indexSrc,indexDst,type;
+    infile>> indexSrc >> indexDst >> type;
+    GraphEdge* newEdge = new GraphEdge();
+    newEdge -> src = Nodes[indexSrc];
+    newEdge -> dst = Nodes[indexDst];
+    newEdge -> type = type;
+    Edges.push_back(newEdge);
+  }
+
+  infile.close();
 }
-
 
 int main(int argc, char** argv){
-    fstream infile,outfile;
+  int i,j;
+  vector<GraphNode*> Nodes;
+  vector<GraphEdge*> Edges;
+  readModel(argv[1], Nodes, Edges);
 
-    GraphNode* root=readModel();
-
-    
 
 }
 
-
-
-
-int cplugin_proc(int module_index,int   proc_index) {
+int cplugin_proc(int module_index, int proc_index) {
   switch(module_index) {
   case 1:
     break;
