@@ -1,23 +1,36 @@
-#include <string>
-#include <vector>
-using namespace::std;
+#ifndef RESIL_H
+#define RESIL_H
 
+#include<string>
+#include<vector>
+using namespace::std;
+extern "C"{
+  #include"redcplugins.e"
+  #include"redlib.h"
+  #include"redlib.e"
+}
 
 class GraphNode;
 class GraphEdge;
 
 class GraphNode{
 public:
-    string name;
-    bool isFail;
-    vector<bool> labels;
-    vector<GraphEdge*> inEdges;
-    vector<GraphEdge*> outEdges;
+  int index;
+  string name;
+  redgram red;
+  bool isFail;
+  vector<bool> labels;
+  vector<GraphEdge*> ins;
+  vector<GraphEdge*> outs;
 };
 
 class GraphEdge{
 public:
-    int type;
-    GraphNode* src;
-    GraphNode* dst;
+  int type;
+  int sxi;
+  vector<string> synchronizers;
+  GraphNode* src;
+  GraphNode* dst;
 };
+
+#endif
