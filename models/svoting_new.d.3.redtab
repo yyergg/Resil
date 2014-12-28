@@ -1,0 +1,1108 @@
+  The following tables are constructed for model template file: 
+    ./models/svoting_new.d
+  of 3 processes.
+  The tables include: 
+    1) process table, 
+    2) mode table, 
+    3) variable table, 
+    4) declared transition table, 
+    5) synchronous transition table, 
+    6) decision diagram for synchronous transitions 
+       to be executed as a whole, and 
+    7) decision diagram for the initial condition. 
+
+****<Caution>***************
+  It is highly recommended that the tables be checked
+  to make sure that there is no bugs in the model,
+  all declared transitions have been generated,
+  all synchronous transitions have been properly constructed,
+  the decision diagram for transition synchronization has 
+  been properly constructed,  
+  and the decision diagram for the initial condition has 
+  been properly constructed. 
+  It is usually difficult to get the model right in the first 
+  few construciton. 
+
+  Especially, without understanding our bulk precondition and 
+  postcondition calculation techniques reported in ICFEM 2005 
+  and Real-Time System Journal 2011, 
+  users may be unaware that some complex synchronous transitions are  
+  to be executed as a whole.  
+  Synchronous transitions are to be executed as a whole if the number
+  of parties is more than a threshold value.
+  Default threshold value is 4.  
+  The threshold value can be queried and set respectively with
+  red_query_sync_bulk_depth() and red_set_sync_bulk_depth().
+
+  If you think that your model is right, but the synchronous 
+  transition enumeration and bulk decision diagram is incorrect,  
+  please send emails to farn@cc.ee.ntu.edu.tw.  
+  We will be more than happy to discuss with you. 
+
+-----(3 Process)---------------------
+id 1; name (null); status 2, grouped to 1
+
+  1 reachable modes: 0
+  5 firable xtions: 0, 1, 2, 3, 4
+id 2; name (null); status 2, grouped to 2
+
+  5 reachable modes: 1, 2, 3, 4, 5
+  7 firable xtions: 0, 5, 6, 7, 8, 9, 10
+id 3; name (null); status 2, grouped to 3
+
+  2 reachable modes: 6, 7
+  7 firable xtions: 0, 11, 12, 13, 14, 15, 16
+
+========(8 MODES)=====================================
+---[MODE 0:dispatcher]----: s:2010 -------------
+--- 4 xtions: 1, 2, 3, 4
+--- 1 processes: 1
+------ pi: 1 ----
+------ invariance red: 
+ (0)V=41:mode@(1);(96dbaf0)41;IC=1;[dispatcher]TRUE;
+       untimed invariance red: 
+ (0)V=41:mode@(1);(96dbaf0)41;IC=1;[dispatcher]TRUE;
+------ 0 zone bounds: 
+
+---[MODE 1:client_check]----: s:2010 -------------
+--- 2 xtions: 5, 6
+--- 1 processes: 2
+------ pi: 2 ----
+------ invariance red: 
+ (0)V=56:mode@(2);(96dd768)41;IC=1;[client_check]TRUE;
+       untimed invariance red: 
+ (0)V=56:mode@(2);(96dd768)41;IC=1;[client_check]TRUE;
+------ 0 zone bounds: 
+
+---[MODE 2:client_wait]----: s:2010 -------------
+--- 1 xtions: 7
+--- 1 processes: 2
+------ pi: 2 ----
+------ invariance red: 
+ (0)V=56:mode@(2);(96dd8d0)41;IC=1;[client_wait]TRUE;
+       untimed invariance red: 
+ (0)V=56:mode@(2);(96dd8d0)41;IC=1;[client_wait]TRUE;
+------ 0 zone bounds: 
+
+---[MODE 3:client_idle]----: s:2010 -------------
+--- 1 xtions: 8
+--- 1 processes: 2
+------ pi: 2 ----
+------ invariance red: 
+ (0)V=56:mode@(2);(96dbd78)41;IC=1;[client_idle]TRUE;
+       untimed invariance red: 
+ (0)V=56:mode@(2);(96dbd78)41;IC=1;[client_idle]TRUE;
+------ 0 zone bounds: 
+
+---[MODE 4:client_corr]----: s:2010 -------------
+--- 1 xtions: 9
+--- 1 processes: 2
+------ pi: 2 ----
+------ invariance red: 
+ (0)V=56:mode@(2);(96ddb20)41;IC=1;[client_corr]TRUE;
+       untimed invariance red: 
+ (0)V=56:mode@(2);(96ddb20)41;IC=1;[client_corr]TRUE;
+------ 0 zone bounds: 
+
+---[MODE 5:client_inco]----: s:2010 -------------
+--- 1 xtions: 10
+--- 1 processes: 2
+------ pi: 2 ----
+------ invariance red: 
+ (0)V=56:mode@(2);(96ddc00)41;IC=1;[client_inco]TRUE;
+       untimed invariance red: 
+ (0)V=56:mode@(2);(96ddc00)41;IC=1;[client_inco]TRUE;
+------ 0 zone bounds: 
+
+---[MODE 6:server_idle]----: s:2010 -------------
+--- 3 xtions: 11, 12, 13
+--- 1 processes: 3
+------ pi: 3 ----
+------ invariance red: 
+ (0)V=71:mode@(3);(96dc118)41;IC=1;[server_idle]TRUE;
+       untimed invariance red: 
+ (0)V=71:mode@(3);(96dc118)41;IC=1;[server_idle]TRUE;
+------ 0 zone bounds: 
+
+---[MODE 7:server_op]----: s:2010 -------------
+--- 3 xtions: 14, 15, 16
+--- 1 processes: 3
+------ pi: 3 ----
+------ invariance red: 
+ (0)V=71:mode@(3);(96de9b0)41;IC=1;[server_op]TRUE;
+       untimed invariance red: 
+ (0)V=71:mode@(3);(96de9b0)41;IC=1;[server_op]TRUE;
+------ 0 zone bounds: 
+
+
+===================================================
+{76 VARIABLES}
+vi=  0;GLOBAL(0) TYPE_FALSE;FALSE; O=0; LB=0; UB=0; S=0;
+vi=  1;GLOBAL(0) TYPE_TRUE;TRUE; O=0; LB=0; UB=0; S=0;
+vi=  2;GLOBAL(0) LHS_PI;INDIRECT_PI; O=0; LB=0; UB=75; S=0;
+vi=  3;GLOBAL(0) RHS_PI;INDIRECT_PI; O=1; LB=0; UB=75; S=0;
+vi=  4;GLOBAL(0) HF_PSTART;PATH ENDPOINT; O=0; LB=0; UB=3; S=0;
+vi=  5;GLOBAL(0) HF_PSTOP;PATH ENDPOINT; O=1; LB=0; UB=3; S=0;
+vi=  6;GLOBAL(0) VI_OP;OP; O=0; LB=0; UB=100; S=0;
+vi=  7;GLOBAL(0) VALUE;DISCRETE; O=0; LB=-2147483648; UB=2147483647; S=4000;
+vi=  8;GLOBAL(0) FLOAT_VALUE;FLOAT; O=16384; LB=-340282346638528859811704183484516925440.0000; UB=340282346638528859811704183484516925440.0000; S=4000;
+vi=  9;GLOBAL(0) DOUBLE_VALUE;DOUBLE; O=16384; LB=-179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.0000; UB=179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.0000; S=4000;
+vi= 10;GLOBAL(0) u;SYNC; O=0; LB=0; UB=1; S=2;
+vi= 11;GLOBAL(0) c;SYNC; O=1; LB=0; UB=1; S=2;
+vi= 12;GLOBAL(0) f;SYNC; O=2; LB=0; UB=1; S=2;
+vi= 13;GLOBAL(0) r;SYNC; O=3; LB=0; UB=1; S=2;
+vi= 14;GLOBAL(0) vote;SYNC; O=4; LB=0; UB=1; S=2;
+vi= 15;GLOBAL(0) req;SYNC; O=5; LB=0; UB=1; S=2;
+vi= 16;GLOBAL(0) count_fault;DISCRETE; O=0; LB=0; UB=5; S=8000010;
+vi= 17;GLOBAL(0) count_fault';DISCRETE; O=0; LB=0; UB=5; S=18000010;
+vi= 18;GLOBAL(0) count_run;DISCRETE; O=1; LB=0; UB=5; S=8000010;
+vi= 19;GLOBAL(0) count_run';DISCRETE; O=1; LB=0; UB=5; S=18000010;
+vi= 20;GLOBAL(0) count_corr;DISCRETE; O=2; LB=0; UB=5; S=8000010;
+vi= 21;GLOBAL(0) count_corr';DISCRETE; O=2; LB=0; UB=5; S=18000010;
+vi= 22;GLOBAL(0) count_inco;DISCRETE; O=3; LB=0; UB=5; S=8000010;
+vi= 23;GLOBAL(0) count_inco';DISCRETE; O=3; LB=0; UB=5; S=18000010;
+vi= 24;GLOBAL(0) mode_aux_bo@(1);DISCRETE; O=0; LB=0; UB=7; S=48084400;
+vi= 25;GLOBAL(0) _sp_aux_bo@(1);DISCRETE; O=1; LB=0; UB=0; S=48084000;
+vi= 26;GLOBAL(0) mode_aux_bo@(2);DISCRETE; O=0; LB=0; UB=7; S=48084400;
+vi= 27;GLOBAL(0) _sp_aux_bo@(2);DISCRETE; O=1; LB=0; UB=0; S=48084000;
+vi= 28;GLOBAL(0) mode_aux_bo@(3);DISCRETE; O=0; LB=0; UB=7; S=48084400;
+vi= 29;GLOBAL(0) _sp_aux_bo@(3);DISCRETE; O=1; LB=0; UB=0; S=48084000;
+vi= 30;GLOBAL(0) LAZY-EXP0;LAZY-EXP; O=0; LB=0; UB=0; S=0;
+vi= 31;LOCAL (1) XI-1;XTION_INS; O=0; LB=0; UB=16; S=0;
+vi= 32;LOCAL (1) AI-1;ACTION_INS; O=0; LB=0; UB=102; S=0;
+vi= 33;LOCAL (1) u@(1);SYNC; O=0; LB=0; UB=1; S=2;
+vi= 34;LOCAL (1) c@(1);SYNC; O=1; LB=0; UB=1; S=2;
+vi= 35;LOCAL (1) f@(1);SYNC; O=2; LB=0; UB=1; S=2;
+vi= 36;LOCAL (1) r@(1);SYNC; O=3; LB=0; UB=1; S=2;
+vi= 37;LOCAL (1) vote@(1);SYNC; O=4; LB=0; UB=1; S=2;
+vi= 38;LOCAL (1) req@(1);SYNC; O=5; LB=0; UB=1; S=2;
+vi= 39;LOCAL (1) SP-0@(1);QSYNC HOLDER; O=0; LB=0; UB=76; S=80001;
+vi= 40;LOCAL (1) SP-1@(1);QSYNC HOLDER; O=1; LB=0; UB=76; S=80001;
+vi= 41;LOCAL (1) mode@(1);DISCRETE; O=0; LB=0; UB=7; S=8184400;
+vi= 42;LOCAL (1) mode'@(1);DISCRETE; O=0; LB=0; UB=7; S=18084400;
+vi= 43;LOCAL (1) _sp@(1);DISCRETE; O=1; LB=0; UB=0; S=8184000;
+vi= 44;LOCAL (1) _sp'@(1);DISCRETE; O=1; LB=0; UB=0; S=18084000;
+vi= 45;LOCAL (1) LAZY-EXP1;LAZY-EXP; O=0; LB=0; UB=0; S=0;
+vi= 46;LOCAL (2) XI-2;XTION_INS; O=0; LB=0; UB=16; S=0;
+vi= 47;LOCAL (2) AI-2;ACTION_INS; O=0; LB=0; UB=102; S=0;
+vi= 48;LOCAL (2) u@(2);SYNC; O=0; LB=0; UB=1; S=2;
+vi= 49;LOCAL (2) c@(2);SYNC; O=1; LB=0; UB=1; S=2;
+vi= 50;LOCAL (2) f@(2);SYNC; O=2; LB=0; UB=1; S=2;
+vi= 51;LOCAL (2) r@(2);SYNC; O=3; LB=0; UB=1; S=2;
+vi= 52;LOCAL (2) vote@(2);SYNC; O=4; LB=0; UB=1; S=2;
+vi= 53;LOCAL (2) req@(2);SYNC; O=5; LB=0; UB=1; S=2;
+vi= 54;LOCAL (2) SP-0@(2);QSYNC HOLDER; O=0; LB=0; UB=76; S=80001;
+vi= 55;LOCAL (2) SP-1@(2);QSYNC HOLDER; O=1; LB=0; UB=76; S=80001;
+vi= 56;LOCAL (2) mode@(2);DISCRETE; O=0; LB=0; UB=7; S=8184400;
+vi= 57;LOCAL (2) mode'@(2);DISCRETE; O=0; LB=0; UB=7; S=18084400;
+vi= 58;LOCAL (2) _sp@(2);DISCRETE; O=1; LB=0; UB=0; S=8184000;
+vi= 59;LOCAL (2) _sp'@(2);DISCRETE; O=1; LB=0; UB=0; S=18084000;
+vi= 60;LOCAL (2) LAZY-EXP2;LAZY-EXP; O=0; LB=0; UB=0; S=0;
+vi= 61;LOCAL (3) XI-3;XTION_INS; O=0; LB=0; UB=16; S=0;
+vi= 62;LOCAL (3) AI-3;ACTION_INS; O=0; LB=0; UB=102; S=0;
+vi= 63;LOCAL (3) u@(3);SYNC; O=0; LB=0; UB=1; S=2;
+vi= 64;LOCAL (3) c@(3);SYNC; O=1; LB=0; UB=1; S=2;
+vi= 65;LOCAL (3) f@(3);SYNC; O=2; LB=0; UB=1; S=2;
+vi= 66;LOCAL (3) r@(3);SYNC; O=3; LB=0; UB=1; S=2;
+vi= 67;LOCAL (3) vote@(3);SYNC; O=4; LB=0; UB=1; S=2;
+vi= 68;LOCAL (3) req@(3);SYNC; O=5; LB=0; UB=1; S=2;
+vi= 69;LOCAL (3) SP-0@(3);QSYNC HOLDER; O=0; LB=0; UB=76; S=80001;
+vi= 70;LOCAL (3) SP-1@(3);QSYNC HOLDER; O=1; LB=0; UB=76; S=80001;
+vi= 71;LOCAL (3) mode@(3);DISCRETE; O=0; LB=0; UB=7; S=8184400;
+vi= 72;LOCAL (3) mode'@(3);DISCRETE; O=0; LB=0; UB=7; S=18084400;
+vi= 73;LOCAL (3) _sp@(3);DISCRETE; O=1; LB=0; UB=0; S=8184000;
+vi= 74;LOCAL (3) _sp'@(3);DISCRETE; O=1; LB=0; UB=0; S=18084000;
+vi= 75;LOCAL (3) LAZY-EXP3;LAZY-EXP; O=0; LB=0; UB=0; S=0;
+
+===================================================
+{0 CLOCKS}
+
+==(17 xtions)============================================
+
+***********************************************************
+XI=0; [-]->[-];S=20;0[]; P:3:(1)(2)(3)
+NULL:PXI=0:?:0[];
+    when (TRUE) may 
+
+-----------------------------------------------
+;
+XTION[0].red_trigger[1]=
+ (0), TRUE
+
+XTION[0].red_events[1]=
+ (0), TRUE
+
+XTION[0].red_trigger[2]=
+ (0), TRUE
+
+XTION[0].red_events[2]=
+ (0), TRUE
+
+XTION[0].red_trigger[3]=
+ (0), TRUE
+
+XTION[0].red_events[3]=
+ (0), TRUE
+
+
+***********************************************************
+XI=1; [0:dispatcher]->[0:dispatcher];S=20;1[1:11:?c:0:-1;]; P:1:(1)
+PXI=1:?:1[1:?c:;];
+    when (dispatcher@(P)) may 
+
+-----------------------------------------------
+;
+XTION[1].red_trigger[1]=
+ (0)V=41:mode@(1);(96dbaf0)41;IC=1;[dispatcher]TRUE;
+
+XTION[1].red_events[1]=
+ (0)V=34:c@(1);96da0b0;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[1].red_trigger[2]=
+ (0), FALSE
+
+XTION[1].red_events[2]=
+ (0)V=49:c@(2);96da0e0;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[1].red_trigger[3]=
+ (0), FALSE
+
+XTION[1].red_events[3]=
+ (0)V=64:c@(3);96da110;41;FALSE-->FALSE;TRUE-->TRUE;
+
+
+***********************************************************
+XI=2; [0:dispatcher]->[0:dispatcher];S=20;1[3:13:?r:0:-1;]; P:1:(1)
+PXI=2:?:1[3:?r:;];
+    when (dispatcher@(P)) may 
+
+-----------------------------------------------
+;
+XTION[2].red_trigger[1]=
+ (0)V=41:mode@(1);(96dbaf0)41;IC=1;[dispatcher]TRUE;
+
+XTION[2].red_events[1]=
+ (0)V=36:r@(1);96da140;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[2].red_trigger[2]=
+ (0), FALSE
+
+XTION[2].red_events[2]=
+ (0)V=51:r@(2);96da1b8;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[2].red_trigger[3]=
+ (0), FALSE
+
+XTION[2].red_events[3]=
+ (0)V=66:r@(3);96da1e8;41;FALSE-->FALSE;TRUE-->TRUE;
+
+
+***********************************************************
+XI=3; [0:dispatcher]->[0:dispatcher];S=20;1[2:12:?f:0:-1;]; P:1:(1)
+PXI=3:?:1[2:?f:;];
+    when (dispatcher@(P)) may 
+
+-----------------------------------------------
+;
+XTION[3].red_trigger[1]=
+ (0)V=41:mode@(1);(96dbaf0)41;IC=1;[dispatcher]TRUE;
+
+XTION[3].red_events[1]=
+ (0)V=35:f@(1);96da218;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[3].red_trigger[2]=
+ (0), FALSE
+
+XTION[3].red_events[2]=
+ (0)V=50:f@(2);96da290;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[3].red_trigger[3]=
+ (0), FALSE
+
+XTION[3].red_events[3]=
+ (0)V=65:f@(3);96da2c0;41;FALSE-->FALSE;TRUE-->TRUE;
+
+
+***********************************************************
+XI=4; [0:dispatcher]->[0:dispatcher];S=20;1[0:10:?u:0:-1;]; P:1:(1)
+PXI=4:?:1[0:?u:;];
+    when (dispatcher@(P)) may 
+
+-----------------------------------------------
+;
+XTION[4].red_trigger[1]=
+ (0)V=41:mode@(1);(96dbaf0)41;IC=1;[dispatcher]TRUE;
+
+XTION[4].red_events[1]=
+ (0)V=33:u@(1);96da2f0;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[4].red_trigger[2]=
+ (0), FALSE
+
+XTION[4].red_events[2]=
+ (0)V=48:u@(2);96da368;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[4].red_trigger[3]=
+ (0), FALSE
+
+XTION[4].red_events[3]=
+ (0)V=63:u@(3);96da398;41;FALSE-->FALSE;TRUE-->TRUE;
+
+
+***********************************************************
+XI=5; [1:client_check]->[4:client_corr];S=8300c00;1[0:10:!u:0:-1;]; P:1:(2)
+PXI=5:?:1[0:?u:;];
+    when ((client_check@(P))&&(count_corr>2)) may count_corr=0;count_inco=0;goto client_corr;
+
+-----------------------------------------------
+count_corr=0; count_inco=0; goto client_corr;
+XTION[5].red_trigger[1]=
+ (0), FALSE
+
+XTION[5].red_events[1]=
+ (0)V=33:u@(1);96da2f0;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[5].red_trigger[2]=
+ (0)V=20:count_corr;96dd7c0;41;IC=1;[3,5]96dd768;
+   (1)V=56:mode@(2);(96dd768)41;IC=1;[client_check]TRUE;
+
+XTION[5].red_events[2]=
+ (0)V=48:u@(2);96da368;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[5].red_trigger[3]=
+ (0), FALSE
+
+XTION[5].red_events[3]=
+ (0)V=63:u@(3);96da398;41;FALSE-->FALSE;TRUE-->TRUE;
+
+
+***********************************************************
+XI=6; [1:client_check]->[5:client_inco];S=8300c00;1[0:10:!u:0:-1;]; P:1:(2)
+PXI=6:?:1[0:?u:;];
+    when ((client_check@(P))&&(count_inco>2)) may count_corr=0;count_inco=0;goto client_inco;
+
+-----------------------------------------------
+count_corr=0; count_inco=0; goto client_inco;
+XTION[6].red_trigger[1]=
+ (0), FALSE
+
+XTION[6].red_events[1]=
+ (0)V=33:u@(1);96da2f0;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[6].red_trigger[2]=
+ (0)V=22:count_inco;96dd860;41;IC=1;[3,5]96dd768;
+   (1)V=56:mode@(2);(96dd768)41;IC=1;[client_check]TRUE;
+
+XTION[6].red_events[2]=
+ (0)V=48:u@(2);96da368;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[6].red_trigger[3]=
+ (0), FALSE
+
+XTION[6].red_events[3]=
+ (0)V=63:u@(3);96da398;41;FALSE-->FALSE;TRUE-->TRUE;
+
+
+***********************************************************
+XI=7; [2:client_wait]->[1:client_check];S=800;1[4:14:?vote:0:-1;]; P:1:(2)
+PXI=7:?:1[4:?vote:;];
+    when (client_wait@(P)) may goto client_check;
+
+-----------------------------------------------
+goto client_check;
+XTION[7].red_trigger[1]=
+ (0), FALSE
+
+XTION[7].red_events[1]=
+ (0)V=37:vote@(1);96da3c8;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[7].red_trigger[2]=
+ (0)V=56:mode@(2);(96dd8d0)41;IC=1;[client_wait]TRUE;
+
+XTION[7].red_events[2]=
+ (0)V=52:vote@(2);96da720;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[7].red_trigger[3]=
+ (0), FALSE
+
+XTION[7].red_events[3]=
+ (0)V=67:vote@(3);96da750;41;FALSE-->FALSE;TRUE-->TRUE;
+
+
+***********************************************************
+XI=8; [3:client_idle]->[2:client_wait];S=100c00;2[0:10:!u:0:-1;5:15:!req:1:-1;]; P:1:(2)
+PXI=8:?:2[5:?req:;0:?u:;];
+    when (client_idle@(P)) may count_corr=0;count_inco=0;goto client_wait;
+
+-----------------------------------------------
+count_corr=0; count_inco=0; goto client_wait;
+XTION[8].red_trigger[1]=
+ (0), FALSE
+
+XTION[8].red_events[1]=
+ (0)V=33:u@(1);96da868;41;FALSE-->FALSE;TRUE-->(96da780);
+   (1)V=38:req@(1);96da780;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[8].red_trigger[2]=
+ (0)V=56:mode@(2);(96dbd78)41;IC=1;[client_idle]TRUE;
+
+XTION[8].red_events[2]=
+ (0)V=48:u@(2);96da8e0;41;FALSE-->FALSE;TRUE-->(96da898);
+   (1)V=53:req@(2);96da898;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[8].red_trigger[3]=
+ (0), FALSE
+
+XTION[8].red_events[3]=
+ (0)V=63:u@(3);96da958;41;FALSE-->FALSE;TRUE-->(96da910);
+   (1)V=68:req@(3);96da910;41;FALSE-->FALSE;TRUE-->TRUE;
+
+
+***********************************************************
+XI=9; [4:client_corr]->[3:client_idle];S=800;1[0:10:!u:0:-1;]; P:1:(2)
+PXI=9:?:1[0:?u:;];
+    when (client_corr@(P)) may goto client_idle;
+
+-----------------------------------------------
+goto client_idle;
+XTION[9].red_trigger[1]=
+ (0), FALSE
+
+XTION[9].red_events[1]=
+ (0)V=33:u@(1);96da2f0;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[9].red_trigger[2]=
+ (0)V=56:mode@(2);(96ddb20)41;IC=1;[client_corr]TRUE;
+
+XTION[9].red_events[2]=
+ (0)V=48:u@(2);96da368;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[9].red_trigger[3]=
+ (0), FALSE
+
+XTION[9].red_events[3]=
+ (0)V=63:u@(3);96da398;41;FALSE-->FALSE;TRUE-->TRUE;
+
+
+***********************************************************
+XI=10; [5:client_inco]->[3:client_idle];S=800;1[0:10:!u:0:-1;]; P:1:(2)
+PXI=10:?:1[0:?u:;];
+    when (client_inco@(P)) may goto client_idle;
+
+-----------------------------------------------
+goto client_idle;
+XTION[10].red_trigger[1]=
+ (0), FALSE
+
+XTION[10].red_events[1]=
+ (0)V=33:u@(1);96da2f0;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[10].red_trigger[2]=
+ (0)V=56:mode@(2);(96ddc00)41;IC=1;[client_inco]TRUE;
+
+XTION[10].red_events[2]=
+ (0)V=48:u@(2);96da368;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[10].red_trigger[3]=
+ (0), FALSE
+
+XTION[10].red_events[3]=
+ (0)V=63:u@(3);96da398;41;FALSE-->FALSE;TRUE-->TRUE;
+
+
+***********************************************************
+XI=11; [6:server_idle]->[6:server_idle];S=8300c00;1[2:12:!f:0:-1;]; P:1:(3)
+PXI=11:?:1[2:?f:;];
+    when ((server_idle@(P))&&(count_run>0)&&(count_fault<5)) may count_run--1;count_fault++1;
+
+-----------------------------------------------
+count_run--1;count_fault++1;
+XTION[11].red_trigger[1]=
+ (0), FALSE
+
+XTION[11].red_events[1]=
+ (0)V=35:f@(1);96da218;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[11].red_trigger[2]=
+ (0), FALSE
+
+XTION[11].red_events[2]=
+ (0)V=50:f@(2);96da290;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[11].red_trigger[3]=
+ (0)V=16:count_fault;96de6c0;41;IC=1;[0,4]96de668;
+   (1)V=18:count_run;96de668;41;IC=1;[1,5]96dc118;
+     (2)V=71:mode@(3);(96dc118)41;IC=1;[server_idle]TRUE;
+
+XTION[11].red_events[3]=
+ (0)V=65:f@(3);96da2c0;41;FALSE-->FALSE;TRUE-->TRUE;
+
+
+***********************************************************
+XI=12; [6:server_idle]->[6:server_idle];S=8300c00;1[3:13:!r:0:-1;]; P:1:(3)
+PXI=12:?:1[3:?r:;];
+    when ((server_idle@(P))&&(count_fault>0)&&(count_run<5)) may count_run++1;count_fault--1;
+
+-----------------------------------------------
+count_run++1;count_fault--1;
+XTION[12].red_trigger[1]=
+ (0), FALSE
+
+XTION[12].red_events[1]=
+ (0)V=36:r@(1);96da140;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[12].red_trigger[2]=
+ (0), FALSE
+
+XTION[12].red_events[2]=
+ (0)V=51:r@(2);96da1b8;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[12].red_trigger[3]=
+ (0)V=16:count_fault;96de880;41;IC=1;[1,5]96de848;
+   (1)V=18:count_run;96de848;41;IC=1;[0,4]96dc118;
+     (2)V=71:mode@(3);(96dc118)41;IC=1;[server_idle]TRUE;
+
+XTION[12].red_events[3]=
+ (0)V=66:r@(3);96da1e8;41;FALSE-->FALSE;TRUE-->TRUE;
+
+
+***********************************************************
+XI=13; [6:server_idle]->[7:server_op];S=800;1[5:15:?req:0:-1;]; P:1:(3)
+PXI=13:?:1[5:?req:;];
+    when (server_idle@(P)) may goto server_op;
+
+-----------------------------------------------
+goto server_op;
+XTION[13].red_trigger[1]=
+ (0), FALSE
+
+XTION[13].red_events[1]=
+ (0)V=38:req@(1);96da780;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[13].red_trigger[2]=
+ (0), FALSE
+
+XTION[13].red_events[2]=
+ (0)V=53:req@(2);96da898;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[13].red_trigger[3]=
+ (0)V=71:mode@(3);(96dc118)41;IC=1;[server_idle]TRUE;
+
+XTION[13].red_events[3]=
+ (0)V=68:req@(3);96da910;41;FALSE-->FALSE;TRUE-->TRUE;
+
+
+***********************************************************
+XI=14; [7:server_op]->[7:server_op];S=8300c00;1[2:12:!f:0:-1;]; P:1:(3)
+PXI=14:?:1[2:?f:;];
+    when ((count_run>0)&&(server_op@(P))&&(count_fault<5)) may count_run--1;count_fault++1;
+
+-----------------------------------------------
+count_run--1;count_fault++1;
+XTION[14].red_trigger[1]=
+ (0), FALSE
+
+XTION[14].red_events[1]=
+ (0)V=35:f@(1);96da218;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[14].red_trigger[2]=
+ (0), FALSE
+
+XTION[14].red_events[2]=
+ (0)V=50:f@(2);96da290;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[14].red_trigger[3]=
+ (0)V=16:count_fault;96dedf8;41;IC=1;[0,4]96deda0;
+   (1)V=18:count_run;96deda0;41;IC=1;[1,5]96de9b0;
+     (2)V=71:mode@(3);(96de9b0)41;IC=1;[server_op]TRUE;
+
+XTION[14].red_events[3]=
+ (0)V=65:f@(3);96da2c0;41;FALSE-->FALSE;TRUE-->TRUE;
+
+
+***********************************************************
+XI=15; [7:server_op]->[7:server_op];S=8300c00;1[3:13:!r:0:-1;]; P:1:(3)
+PXI=15:?:1[3:?r:;];
+    when ((count_fault>0)&&(server_op@(P))&&(count_run<5)) may count_run++1;count_fault--1;
+
+-----------------------------------------------
+count_run++1;count_fault--1;
+XTION[15].red_trigger[1]=
+ (0), FALSE
+
+XTION[15].red_events[1]=
+ (0)V=36:r@(1);96da140;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[15].red_trigger[2]=
+ (0), FALSE
+
+XTION[15].red_events[2]=
+ (0)V=51:r@(2);96da1b8;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[15].red_trigger[3]=
+ (0)V=16:count_fault;96defd0;41;IC=1;[1,5]96def98;
+   (1)V=18:count_run;96def98;41;IC=1;[0,4]96de9b0;
+     (2)V=71:mode@(3);(96de9b0)41;IC=1;[server_op]TRUE;
+
+XTION[15].red_events[3]=
+ (0)V=66:r@(3);96da1e8;41;FALSE-->FALSE;TRUE-->TRUE;
+
+
+***********************************************************
+XI=16; [7:server_op]->[6:server_idle];S=100c00;2[1:11:!c:0:-1;4:14:!vote:1:-1;]; P:1:(3)
+PXI=16:?:2[4:?vote:;1:?c:;];
+    when (server_op@(P)) may count_inco=count_fault;count_fault=0;count_corr=count_run;count_run=0;goto server_idle;
+
+-----------------------------------------------
+count_inco=count_fault; count_fault=0; count_corr=count_run; count_run=0; goto server_idle;
+XTION[16].red_trigger[1]=
+ (0), FALSE
+
+XTION[16].red_events[1]=
+ (0)V=34:c@(1);96daae0;41;FALSE-->FALSE;TRUE-->(96da3c8);
+   (1)V=37:vote@(1);96da3c8;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[16].red_trigger[2]=
+ (0), FALSE
+
+XTION[16].red_events[2]=
+ (0)V=49:c@(2);96db168;41;FALSE-->FALSE;TRUE-->(96da720);
+   (1)V=52:vote@(2);96da720;41;FALSE-->FALSE;TRUE-->TRUE;
+
+XTION[16].red_trigger[3]=
+ (0)V=71:mode@(3);(96de9b0)41;IC=1;[server_op]TRUE;
+
+XTION[16].red_events[3]=
+ (0)V=64:c@(3);96db1b0;41;FALSE-->FALSE;TRUE-->(96da750);
+   (1)V=67:vote@(3);96da750;41;FALSE-->FALSE;TRUE-->TRUE;
+
+
+
+***11  SYNC XTIONS:
+
+++++(SYNC XTION 0 with 0 parties, status 0)+++++++++++++++++++++++++
+ec_rep[MODL]=-1, ec_rep[SPEC]=-1
+  0 quantified sync variables: 
+    
+  0 fairness checks: 
+  red_events:
+ (0)V=33:u@(1);96ed1a0;41;FALSE-->(96e98a8);TRUE-->FALSE;
+   (1)V=34:c@(1);96e98a8;41;FALSE-->(96e9878);TRUE-->FALSE;
+     (2)V=35:f@(1);96e9878;41;FALSE-->(96e9bb8);TRUE-->FALSE;
+       (3)V=36:r@(1);96e9bb8;41;FALSE-->(96e9b88);TRUE-->FALSE;
+         (4)V=37:vote@(1);96e9b88;41;FALSE-->(96ecd88);TRUE-->FALSE;
+           (5)V=38:req@(1);96ecd88;41;FALSE-->(96ecd58);TRUE-->FALSE;
+             (6)V=48:u@(2);96ecd58;41;FALSE-->(96ed090);TRUE-->FALSE;
+               (7)V=49:c@(2);96ed090;41;FALSE-->(96ed060);TRUE-->FALSE;
+                 (8)V=50:f@(2);96ed060;41;FALSE-->(96ecec8);TRUE-->FALSE;
+                   (9)V=51:r@(2);96ecec8;41;FALSE-->(96ece98);TRUE-->FALSE;
+                     (10)V=52:vote@(2);96ece98;41;FALSE-->(96e9600);TRUE-->FALSE;
+                       (11)V=53:req@(2);96e9600;41;FALSE-->(96e95e0);TRUE-->FALSE;
+                         (12)V=63:u@(3);96e95e0;41;FALSE-->(96e95b0);TRUE-->FALSE;
+                           (13)V=64:c@(3);96e95b0;41;FALSE-->(96e9828);TRUE-->FALSE;
+                             (14)V=65:f@(3);96e9828;41;FALSE-->(96e9558);TRUE-->FALSE;
+                               (15)V=66:r@(3);96e9558;41;FALSE-->(96ec8f8);TRUE-->FALSE;
+                                 (16)V=67:vote@(3);96ec8f8;41;FALSE-->(96ecb40);TRUE-->FALSE;
+                                   (17)V=68:req@(3);96ecb40;41;FALSE-->TRUE;TRUE-->FALSE;
+  red_trigger:
+ (0), TRUE
+  red_post:
+ (0), TRUE
+
+
+-----------------------------------------------
+++++(SYNC XTION 1 with 3 parties, status 100002)+++++++++++++++++++++++++
+ec_rep[MODL]=-1, ec_rep[SPEC]=-1
+  0: (p1:x1) when ?c (dispatcher@(1)) may ;
+  1: (p2:x7) when ?vote (client_wait@(2)) may goto client_check;
+  2: (p3:x16) when !c !vote (server_op@(3)) may count_inco=count_fault; count_fault=0; count_corr=count_run; count_run=0; goto server_idle;
+  0 quantified sync variables: 
+    
+  0 fairness checks: 
+  red_events:
+ (0)V=33:u@(1);96eac10;41;FALSE-->(96eabe0);TRUE-->FALSE;
+   (1)V=34:c@(1);96eabe0;41;FALSE-->FALSE;TRUE-->(96eabb0);
+     (2)V=35:f@(1);96eabb0;41;FALSE-->(96eab80);TRUE-->FALSE;
+       (3)V=36:r@(1);96eab80;41;FALSE-->(96eab50);TRUE-->FALSE;
+         (4)V=37:vote@(1);96eab50;41;FALSE-->(96eab20);TRUE-->FALSE;
+           (5)V=38:req@(1);96eab20;41;FALSE-->(96eaaf0);TRUE-->FALSE;
+             (6)V=48:u@(2);96eaaf0;41;FALSE-->(96eaac0);TRUE-->FALSE;
+               (7)V=49:c@(2);96eaac0;41;FALSE-->(96eaa90);TRUE-->FALSE;
+                 (8)V=50:f@(2);96eaa90;41;FALSE-->(96eaa60);TRUE-->FALSE;
+                   (9)V=51:r@(2);96eaa60;41;FALSE-->(96eaa30);TRUE-->FALSE;
+                     (10)V=52:vote@(2);96eaa30;41;FALSE-->FALSE;TRUE-->(96eaa00);
+                       (11)V=53:req@(2);96eaa00;41;FALSE-->(96ea9d0);TRUE-->FALSE;
+                         (12)V=63:u@(3);96ea9d0;41;FALSE-->(96ea9a0);TRUE-->FALSE;
+                           (13)V=64:c@(3);96ea9a0;41;FALSE-->FALSE;TRUE-->(96ea970);
+                             (14)V=65:f@(3);96ea970;41;FALSE-->(96ea940);TRUE-->FALSE;
+                               (15)V=66:r@(3);96ea940;41;FALSE-->(96ea910);TRUE-->FALSE;
+                                 (16)V=67:vote@(3);96ea910;41;FALSE-->FALSE;TRUE-->(96ecb40);
+                                   (17)V=68:req@(3);96ecb40;41;FALSE-->TRUE;TRUE-->FALSE;
+  red_trigger:
+ (0)V=41:mode@(1);(96e00f0)41;IC=1;[dispatcher]96e00a0;
+   (1)V=56:mode@(2);(96e00a0)41;IC=1;[client_wait]96de9b0;
+     (2)V=71:mode@(3);(96de9b0)41;IC=1;[server_op]TRUE;
+  red_post:
+ (0)V=18:count_run;96ea1d8;41;IC=1;[0,0]96dc118;
+   (1)V=71:mode@(3);(96dc118)41;IC=1;[server_idle]TRUE;
+
+
+-----------------------------------------------
+++++(SYNC XTION 2 with 2 parties, status 8300002)+++++++++++++++++++++++++
+ec_rep[MODL]=-1, ec_rep[SPEC]=-1
+  0: (p1:x2) when ?r (dispatcher@(1)) may ;
+  1: (p3:x12) when !r ((1<=count_fault&&count_fault<=5) && (0<=count_run&&count_run<=4) && server_idle@(3)) may count_run++1;count_fault--1;
+  0 quantified sync variables: 
+    
+  0 fairness checks: 
+  red_events:
+ (0)V=33:u@(1);96eb2e0;41;FALSE-->(96eb2b0);TRUE-->FALSE;
+   (1)V=34:c@(1);96eb2b0;41;FALSE-->(96eb280);TRUE-->FALSE;
+     (2)V=35:f@(1);96eb280;41;FALSE-->(96eb250);TRUE-->FALSE;
+       (3)V=36:r@(1);96eb250;41;FALSE-->FALSE;TRUE-->(96eb220);
+         (4)V=37:vote@(1);96eb220;41;FALSE-->(96eb1f0);TRUE-->FALSE;
+           (5)V=38:req@(1);96eb1f0;41;FALSE-->(96eb1c0);TRUE-->FALSE;
+             (6)V=48:u@(2);96eb1c0;41;FALSE-->(96eb190);TRUE-->FALSE;
+               (7)V=49:c@(2);96eb190;41;FALSE-->(96eb160);TRUE-->FALSE;
+                 (8)V=50:f@(2);96eb160;41;FALSE-->(96eb130);TRUE-->FALSE;
+                   (9)V=51:r@(2);96eb130;41;FALSE-->(96eb100);TRUE-->FALSE;
+                     (10)V=52:vote@(2);96eb100;41;FALSE-->(96eb0d0);TRUE-->FALSE;
+                       (11)V=53:req@(2);96eb0d0;41;FALSE-->(96eb0a0);TRUE-->FALSE;
+                         (12)V=63:u@(3);96eb0a0;41;FALSE-->(96eb070);TRUE-->FALSE;
+                           (13)V=64:c@(3);96eb070;41;FALSE-->(96eb040);TRUE-->FALSE;
+                             (14)V=65:f@(3);96eb040;41;FALSE-->(96eb010);TRUE-->FALSE;
+                               (15)V=66:r@(3);96eb010;41;FALSE-->FALSE;TRUE-->(96ec8f8);
+                                 (16)V=67:vote@(3);96ec8f8;41;FALSE-->(96ecb40);TRUE-->FALSE;
+                                   (17)V=68:req@(3);96ecb40;41;FALSE-->TRUE;TRUE-->FALSE;
+  red_trigger:
+ (0)V=16:count_fault;96ea8d8;41;IC=1;[1,5]96e9f58;
+   (1)V=18:count_run;96e9f58;41;IC=1;[0,4]96dd958;
+     (2)V=41:mode@(1);(96dd958)41;IC=1;[dispatcher]96dc118;
+       (3)V=71:mode@(3);(96dc118)41;IC=1;[server_idle]TRUE;
+  red_post:
+ (0)V=16:count_fault;96eaea0;41;IC=1;[0,4]96eae10;
+   (1)V=18:count_run;96eae10;41;IC=1;[1,5]96dd958;
+     (2)V=41:mode@(1);(96dd958)41;IC=1;[dispatcher]96dc118;
+       (3)V=71:mode@(3);(96dc118)41;IC=1;[server_idle]TRUE;
+
+
+-----------------------------------------------
+++++(SYNC XTION 3 with 2 parties, status 8300002)+++++++++++++++++++++++++
+ec_rep[MODL]=-1, ec_rep[SPEC]=-1
+  0: (p1:x2) when ?r (dispatcher@(1)) may ;
+  1: (p3:x15) when !r ((1<=count_fault&&count_fault<=5) && (0<=count_run&&count_run<=4) && server_op@(3)) may count_run++1;count_fault--1;
+  0 quantified sync variables: 
+    
+  0 fairness checks: 
+  red_events:
+ (0)V=33:u@(1);96eb2e0;41;FALSE-->(96eb2b0);TRUE-->FALSE;
+   (1)V=34:c@(1);96eb2b0;41;FALSE-->(96eb280);TRUE-->FALSE;
+     (2)V=35:f@(1);96eb280;41;FALSE-->(96eb250);TRUE-->FALSE;
+       (3)V=36:r@(1);96eb250;41;FALSE-->FALSE;TRUE-->(96eb220);
+         (4)V=37:vote@(1);96eb220;41;FALSE-->(96eb1f0);TRUE-->FALSE;
+           (5)V=38:req@(1);96eb1f0;41;FALSE-->(96eb1c0);TRUE-->FALSE;
+             (6)V=48:u@(2);96eb1c0;41;FALSE-->(96eb190);TRUE-->FALSE;
+               (7)V=49:c@(2);96eb190;41;FALSE-->(96eb160);TRUE-->FALSE;
+                 (8)V=50:f@(2);96eb160;41;FALSE-->(96eb130);TRUE-->FALSE;
+                   (9)V=51:r@(2);96eb130;41;FALSE-->(96eb100);TRUE-->FALSE;
+                     (10)V=52:vote@(2);96eb100;41;FALSE-->(96eb0d0);TRUE-->FALSE;
+                       (11)V=53:req@(2);96eb0d0;41;FALSE-->(96eb0a0);TRUE-->FALSE;
+                         (12)V=63:u@(3);96eb0a0;41;FALSE-->(96eb070);TRUE-->FALSE;
+                           (13)V=64:c@(3);96eb070;41;FALSE-->(96eb040);TRUE-->FALSE;
+                             (14)V=65:f@(3);96eb040;41;FALSE-->(96eb010);TRUE-->FALSE;
+                               (15)V=66:r@(3);96eb010;41;FALSE-->FALSE;TRUE-->(96ec8f8);
+                                 (16)V=67:vote@(3);96ec8f8;41;FALSE-->(96ecb40);TRUE-->FALSE;
+                                   (17)V=68:req@(3);96ecb40;41;FALSE-->TRUE;TRUE-->FALSE;
+  red_trigger:
+ (0)V=16:count_fault;96eb348;41;IC=1;[1,5]96d3e90;
+   (1)V=18:count_run;96d3e90;41;IC=1;[0,4]96e0008;
+     (2)V=41:mode@(1);(96e0008)41;IC=1;[dispatcher]96de9b0;
+       (3)V=71:mode@(3);(96de9b0)41;IC=1;[server_op]TRUE;
+  red_post:
+ (0)V=16:count_fault;96eb590;41;IC=1;[0,4]96eb500;
+   (1)V=18:count_run;96eb500;41;IC=1;[1,5]96e0008;
+     (2)V=41:mode@(1);(96e0008)41;IC=1;[dispatcher]96de9b0;
+       (3)V=71:mode@(3);(96de9b0)41;IC=1;[server_op]TRUE;
+
+
+-----------------------------------------------
+++++(SYNC XTION 4 with 2 parties, status 8300002)+++++++++++++++++++++++++
+ec_rep[MODL]=-1, ec_rep[SPEC]=-1
+  0: (p1:x3) when ?f (dispatcher@(1)) may ;
+  1: (p3:x11) when !f ((0<=count_fault&&count_fault<=4) && (1<=count_run&&count_run<=5) && server_idle@(3)) may count_run--1;count_fault++1;
+  0 quantified sync variables: 
+    
+  0 fairness checks: 
+  red_events:
+ (0)V=33:u@(1);96ebc10;41;FALSE-->(96ebbe0);TRUE-->FALSE;
+   (1)V=34:c@(1);96ebbe0;41;FALSE-->(96ebbb0);TRUE-->FALSE;
+     (2)V=35:f@(1);96ebbb0;41;FALSE-->FALSE;TRUE-->(96ebb80);
+       (3)V=36:r@(1);96ebb80;41;FALSE-->(96ebb50);TRUE-->FALSE;
+         (4)V=37:vote@(1);96ebb50;41;FALSE-->(96ebb20);TRUE-->FALSE;
+           (5)V=38:req@(1);96ebb20;41;FALSE-->(96ebaf0);TRUE-->FALSE;
+             (6)V=48:u@(2);96ebaf0;41;FALSE-->(96ebac0);TRUE-->FALSE;
+               (7)V=49:c@(2);96ebac0;41;FALSE-->(96eba90);TRUE-->FALSE;
+                 (8)V=50:f@(2);96eba90;41;FALSE-->(96eba60);TRUE-->FALSE;
+                   (9)V=51:r@(2);96eba60;41;FALSE-->(96eba30);TRUE-->FALSE;
+                     (10)V=52:vote@(2);96eba30;41;FALSE-->(96eba00);TRUE-->FALSE;
+                       (11)V=53:req@(2);96eba00;41;FALSE-->(96eb9d0);TRUE-->FALSE;
+                         (12)V=63:u@(3);96eb9d0;41;FALSE-->(96eb9a0);TRUE-->FALSE;
+                           (13)V=64:c@(3);96eb9a0;41;FALSE-->(96eb970);TRUE-->FALSE;
+                             (14)V=65:f@(3);96eb970;41;FALSE-->FALSE;TRUE-->(96e9558);
+                               (15)V=66:r@(3);96e9558;41;FALSE-->(96ec8f8);TRUE-->FALSE;
+                                 (16)V=67:vote@(3);96ec8f8;41;FALSE-->(96ecb40);TRUE-->FALSE;
+                                   (17)V=68:req@(3);96ecb40;41;FALSE-->TRUE;TRUE-->FALSE;
+  red_trigger:
+ (0)V=16:count_fault;96eaea0;41;IC=1;[0,4]96eae10;
+   (1)V=18:count_run;96eae10;41;IC=1;[1,5]96dd958;
+     (2)V=41:mode@(1);(96dd958)41;IC=1;[dispatcher]96dc118;
+       (3)V=71:mode@(3);(96dc118)41;IC=1;[server_idle]TRUE;
+  red_post:
+ (0)V=16:count_fault;96ea8d8;41;IC=1;[1,5]96e9f58;
+   (1)V=18:count_run;96e9f58;41;IC=1;[0,4]96dd958;
+     (2)V=41:mode@(1);(96dd958)41;IC=1;[dispatcher]96dc118;
+       (3)V=71:mode@(3);(96dc118)41;IC=1;[server_idle]TRUE;
+
+
+-----------------------------------------------
+++++(SYNC XTION 5 with 2 parties, status 8300002)+++++++++++++++++++++++++
+ec_rep[MODL]=-1, ec_rep[SPEC]=-1
+  0: (p1:x3) when ?f (dispatcher@(1)) may ;
+  1: (p3:x14) when !f ((0<=count_fault&&count_fault<=4) && (1<=count_run&&count_run<=5) && server_op@(3)) may count_run--1;count_fault++1;
+  0 quantified sync variables: 
+    
+  0 fairness checks: 
+  red_events:
+ (0)V=33:u@(1);96ebc10;41;FALSE-->(96ebbe0);TRUE-->FALSE;
+   (1)V=34:c@(1);96ebbe0;41;FALSE-->(96ebbb0);TRUE-->FALSE;
+     (2)V=35:f@(1);96ebbb0;41;FALSE-->FALSE;TRUE-->(96ebb80);
+       (3)V=36:r@(1);96ebb80;41;FALSE-->(96ebb50);TRUE-->FALSE;
+         (4)V=37:vote@(1);96ebb50;41;FALSE-->(96ebb20);TRUE-->FALSE;
+           (5)V=38:req@(1);96ebb20;41;FALSE-->(96ebaf0);TRUE-->FALSE;
+             (6)V=48:u@(2);96ebaf0;41;FALSE-->(96ebac0);TRUE-->FALSE;
+               (7)V=49:c@(2);96ebac0;41;FALSE-->(96eba90);TRUE-->FALSE;
+                 (8)V=50:f@(2);96eba90;41;FALSE-->(96eba60);TRUE-->FALSE;
+                   (9)V=51:r@(2);96eba60;41;FALSE-->(96eba30);TRUE-->FALSE;
+                     (10)V=52:vote@(2);96eba30;41;FALSE-->(96eba00);TRUE-->FALSE;
+                       (11)V=53:req@(2);96eba00;41;FALSE-->(96eb9d0);TRUE-->FALSE;
+                         (12)V=63:u@(3);96eb9d0;41;FALSE-->(96eb9a0);TRUE-->FALSE;
+                           (13)V=64:c@(3);96eb9a0;41;FALSE-->(96eb970);TRUE-->FALSE;
+                             (14)V=65:f@(3);96eb970;41;FALSE-->FALSE;TRUE-->(96e9558);
+                               (15)V=66:r@(3);96e9558;41;FALSE-->(96ec8f8);TRUE-->FALSE;
+                                 (16)V=67:vote@(3);96ec8f8;41;FALSE-->(96ecb40);TRUE-->FALSE;
+                                   (17)V=68:req@(3);96ecb40;41;FALSE-->TRUE;TRUE-->FALSE;
+  red_trigger:
+ (0)V=16:count_fault;96eb590;41;IC=1;[0,4]96eb500;
+   (1)V=18:count_run;96eb500;41;IC=1;[1,5]96e0008;
+     (2)V=41:mode@(1);(96e0008)41;IC=1;[dispatcher]96de9b0;
+       (3)V=71:mode@(3);(96de9b0)41;IC=1;[server_op]TRUE;
+  red_post:
+ (0)V=16:count_fault;96eb348;41;IC=1;[1,5]96d3e90;
+   (1)V=18:count_run;96d3e90;41;IC=1;[0,4]96e0008;
+     (2)V=41:mode@(1);(96e0008)41;IC=1;[dispatcher]96de9b0;
+       (3)V=71:mode@(3);(96de9b0)41;IC=1;[server_op]TRUE;
+
+
+-----------------------------------------------
+++++(SYNC XTION 6 with 2 parties, status 8300002)+++++++++++++++++++++++++
+ec_rep[MODL]=-1, ec_rep[SPEC]=-1
+  0: (p1:x4) when ?u (dispatcher@(1)) may ;
+  1: (p2:x5) when !u ((3<=count_corr&&count_corr<=5) && client_check@(2)) may count_corr=0; count_inco=0; goto client_corr;
+  0 quantified sync variables: 
+    
+  0 fairness checks: 
+  red_events:
+ (0)V=33:u@(1);96ec528;41;FALSE-->FALSE;TRUE-->(96ec4f8);
+   (1)V=34:c@(1);96ec4f8;41;FALSE-->(96ec4c8);TRUE-->FALSE;
+     (2)V=35:f@(1);96ec4c8;41;FALSE-->(96ec498);TRUE-->FALSE;
+       (3)V=36:r@(1);96ec498;41;FALSE-->(96ec468);TRUE-->FALSE;
+         (4)V=37:vote@(1);96ec468;41;FALSE-->(96ec438);TRUE-->FALSE;
+           (5)V=38:req@(1);96ec438;41;FALSE-->(96ec408);TRUE-->FALSE;
+             (6)V=48:u@(2);96ec408;41;FALSE-->FALSE;TRUE-->(96ed090);
+               (7)V=49:c@(2);96ed090;41;FALSE-->(96ed060);TRUE-->FALSE;
+                 (8)V=50:f@(2);96ed060;41;FALSE-->(96ecec8);TRUE-->FALSE;
+                   (9)V=51:r@(2);96ecec8;41;FALSE-->(96ece98);TRUE-->FALSE;
+                     (10)V=52:vote@(2);96ece98;41;FALSE-->(96e9600);TRUE-->FALSE;
+                       (11)V=53:req@(2);96e9600;41;FALSE-->(96e95e0);TRUE-->FALSE;
+                         (12)V=63:u@(3);96e95e0;41;FALSE-->(96e95b0);TRUE-->FALSE;
+                           (13)V=64:c@(3);96e95b0;41;FALSE-->(96e9828);TRUE-->FALSE;
+                             (14)V=65:f@(3);96e9828;41;FALSE-->(96e9558);TRUE-->FALSE;
+                               (15)V=66:r@(3);96e9558;41;FALSE-->(96ec8f8);TRUE-->FALSE;
+                                 (16)V=67:vote@(3);96ec8f8;41;FALSE-->(96ecb40);TRUE-->FALSE;
+                                   (17)V=68:req@(3);96ecb40;41;FALSE-->TRUE;TRUE-->FALSE;
+  red_trigger:
+ (0)V=20:count_corr;96ebe70;41;IC=1;[3,5]96d52a8;
+   (1)V=41:mode@(1);(96d52a8)41;IC=1;[dispatcher]96dd768;
+     (2)V=56:mode@(2);(96dd768)41;IC=1;[client_check]TRUE;
+  red_post:
+ (0)V=20:count_corr;96ec278;41;IC=1;[0,0]96ec238;
+   (1)V=22:count_inco;96ec238;41;IC=1;[0,0]96ec208;
+     (2)V=41:mode@(1);(96ec208)41;IC=1;[dispatcher]96ddb20;
+       (3)V=56:mode@(2);(96ddb20)41;IC=1;[client_corr]TRUE;
+
+
+-----------------------------------------------
+++++(SYNC XTION 7 with 2 parties, status 8300002)+++++++++++++++++++++++++
+ec_rep[MODL]=-1, ec_rep[SPEC]=-1
+  0: (p1:x4) when ?u (dispatcher@(1)) may ;
+  1: (p2:x6) when !u ((3<=count_inco&&count_inco<=5) && client_check@(2)) may count_corr=0; count_inco=0; goto client_inco;
+  0 quantified sync variables: 
+    
+  0 fairness checks: 
+  red_events:
+ (0)V=33:u@(1);96ec528;41;FALSE-->FALSE;TRUE-->(96ec4f8);
+   (1)V=34:c@(1);96ec4f8;41;FALSE-->(96ec4c8);TRUE-->FALSE;
+     (2)V=35:f@(1);96ec4c8;41;FALSE-->(96ec498);TRUE-->FALSE;
+       (3)V=36:r@(1);96ec498;41;FALSE-->(96ec468);TRUE-->FALSE;
+         (4)V=37:vote@(1);96ec468;41;FALSE-->(96ec438);TRUE-->FALSE;
+           (5)V=38:req@(1);96ec438;41;FALSE-->(96ec408);TRUE-->FALSE;
+             (6)V=48:u@(2);96ec408;41;FALSE-->FALSE;TRUE-->(96ed090);
+               (7)V=49:c@(2);96ed090;41;FALSE-->(96ed060);TRUE-->FALSE;
+                 (8)V=50:f@(2);96ed060;41;FALSE-->(96ecec8);TRUE-->FALSE;
+                   (9)V=51:r@(2);96ecec8;41;FALSE-->(96ece98);TRUE-->FALSE;
+                     (10)V=52:vote@(2);96ece98;41;FALSE-->(96e9600);TRUE-->FALSE;
+                       (11)V=53:req@(2);96e9600;41;FALSE-->(96e95e0);TRUE-->FALSE;
+                         (12)V=63:u@(3);96e95e0;41;FALSE-->(96e95b0);TRUE-->FALSE;
+                           (13)V=64:c@(3);96e95b0;41;FALSE-->(96e9828);TRUE-->FALSE;
+                             (14)V=65:f@(3);96e9828;41;FALSE-->(96e9558);TRUE-->FALSE;
+                               (15)V=66:r@(3);96e9558;41;FALSE-->(96ec8f8);TRUE-->FALSE;
+                                 (16)V=67:vote@(3);96ec8f8;41;FALSE-->(96ecb40);TRUE-->FALSE;
+                                   (17)V=68:req@(3);96ecb40;41;FALSE-->TRUE;TRUE-->FALSE;
+  red_trigger:
+ (0)V=22:count_inco;96ec3a0;41;IC=1;[3,5]96d52a8;
+   (1)V=41:mode@(1);(96d52a8)41;IC=1;[dispatcher]96dd768;
+     (2)V=56:mode@(2);(96dd768)41;IC=1;[client_check]TRUE;
+  red_post:
+ (0)V=20:count_corr;96edb20;41;IC=1;[0,0]96edae0;
+   (1)V=22:count_inco;96edae0;41;IC=1;[0,0]96edac0;
+     (2)V=41:mode@(1);(96edac0)41;IC=1;[dispatcher]96ddc00;
+       (3)V=56:mode@(2);(96ddc00)41;IC=1;[client_inco]TRUE;
+
+
+-----------------------------------------------
+++++(SYNC XTION 8 with 3 parties, status 100002)+++++++++++++++++++++++++
+ec_rep[MODL]=-1, ec_rep[SPEC]=-1
+  0: (p1:x4) when ?u (dispatcher@(1)) may ;
+  1: (p2:x8) when !u !req (client_idle@(2)) may count_corr=0; count_inco=0; goto client_wait;
+  2: (p3:x13) when ?req (server_idle@(3)) may goto server_op;
+  0 quantified sync variables: 
+    
+  0 fairness checks: 
+  red_events:
+ (0)V=33:u@(1);96ee5f0;41;FALSE-->FALSE;TRUE-->(96ee5c0);
+   (1)V=34:c@(1);96ee5c0;41;FALSE-->(96ee590);TRUE-->FALSE;
+     (2)V=35:f@(1);96ee590;41;FALSE-->(96ee560);TRUE-->FALSE;
+       (3)V=36:r@(1);96ee560;41;FALSE-->(96ee530);TRUE-->FALSE;
+         (4)V=37:vote@(1);96ee530;41;FALSE-->(96ee500);TRUE-->FALSE;
+           (5)V=38:req@(1);96ee500;41;FALSE-->(96ee4d0);TRUE-->FALSE;
+             (6)V=48:u@(2);96ee4d0;41;FALSE-->FALSE;TRUE-->(96ee4a0);
+               (7)V=49:c@(2);96ee4a0;41;FALSE-->(96ee470);TRUE-->FALSE;
+                 (8)V=50:f@(2);96ee470;41;FALSE-->(96ee440);TRUE-->FALSE;
+                   (9)V=51:r@(2);96ee440;41;FALSE-->(96ee410);TRUE-->FALSE;
+                     (10)V=52:vote@(2);96ee410;41;FALSE-->(96ee3e0);TRUE-->FALSE;
+                       (11)V=53:req@(2);96ee3e0;41;FALSE-->FALSE;TRUE-->(96ee3b0);
+                         (12)V=63:u@(3);96ee3b0;41;FALSE-->(96ee380);TRUE-->FALSE;
+                           (13)V=64:c@(3);96ee380;41;FALSE-->(96ee350);TRUE-->FALSE;
+                             (14)V=65:f@(3);96ee350;41;FALSE-->(96ee320);TRUE-->FALSE;
+                               (15)V=66:r@(3);96ee320;41;FALSE-->(96ee2f0);TRUE-->FALSE;
+                                 (16)V=67:vote@(3);96ee2f0;41;FALSE-->(96da910);TRUE-->FALSE;
+                                   (17)V=68:req@(3);96da910;41;FALSE-->FALSE;TRUE-->TRUE;
+  red_trigger:
+ (0)V=41:mode@(1);(96dc240)41;IC=1;[dispatcher]96dc170;
+   (1)V=56:mode@(2);(96dc170)41;IC=1;[client_idle]96dc118;
+     (2)V=71:mode@(3);(96dc118)41;IC=1;[server_idle]TRUE;
+  red_post:
+ (0)V=20:count_corr;96ee060;41;IC=1;[0,0]96ee020;
+   (1)V=22:count_inco;96ee020;41;IC=1;[0,0]96e00f0;
+     (2)V=41:mode@(1);(96e00f0)41;IC=1;[dispatcher]96e00a0;
+       (3)V=56:mode@(2);(96e00a0)41;IC=1;[client_wait]96de9b0;
+         (4)V=71:mode@(3);(96de9b0)41;IC=1;[server_op]TRUE;
+
+
+-----------------------------------------------
+++++(SYNC XTION 9 with 2 parties, status 2)+++++++++++++++++++++++++
+ec_rep[MODL]=-1, ec_rep[SPEC]=-1
+  0: (p1:x4) when ?u (dispatcher@(1)) may ;
+  1: (p2:x9) when !u (client_corr@(2)) may goto client_idle;
+  0 quantified sync variables: 
+    
+  0 fairness checks: 
+  red_events:
+ (0)V=33:u@(1);96ec528;41;FALSE-->FALSE;TRUE-->(96ec4f8);
+   (1)V=34:c@(1);96ec4f8;41;FALSE-->(96ec4c8);TRUE-->FALSE;
+     (2)V=35:f@(1);96ec4c8;41;FALSE-->(96ec498);TRUE-->FALSE;
+       (3)V=36:r@(1);96ec498;41;FALSE-->(96ec468);TRUE-->FALSE;
+         (4)V=37:vote@(1);96ec468;41;FALSE-->(96ec438);TRUE-->FALSE;
+           (5)V=38:req@(1);96ec438;41;FALSE-->(96ec408);TRUE-->FALSE;
+             (6)V=48:u@(2);96ec408;41;FALSE-->FALSE;TRUE-->(96ed090);
+               (7)V=49:c@(2);96ed090;41;FALSE-->(96ed060);TRUE-->FALSE;
+                 (8)V=50:f@(2);96ed060;41;FALSE-->(96ecec8);TRUE-->FALSE;
+                   (9)V=51:r@(2);96ecec8;41;FALSE-->(96ece98);TRUE-->FALSE;
+                     (10)V=52:vote@(2);96ece98;41;FALSE-->(96e9600);TRUE-->FALSE;
+                       (11)V=53:req@(2);96e9600;41;FALSE-->(96e95e0);TRUE-->FALSE;
+                         (12)V=63:u@(3);96e95e0;41;FALSE-->(96e95b0);TRUE-->FALSE;
+                           (13)V=64:c@(3);96e95b0;41;FALSE-->(96e9828);TRUE-->FALSE;
+                             (14)V=65:f@(3);96e9828;41;FALSE-->(96e9558);TRUE-->FALSE;
+                               (15)V=66:r@(3);96e9558;41;FALSE-->(96ec8f8);TRUE-->FALSE;
+                                 (16)V=67:vote@(3);96ec8f8;41;FALSE-->(96ecb40);TRUE-->FALSE;
+                                   (17)V=68:req@(3);96ecb40;41;FALSE-->TRUE;TRUE-->FALSE;
+  red_trigger:
+ (0)V=41:mode@(1);(96ec208)41;IC=1;[dispatcher]96ddb20;
+   (1)V=56:mode@(2);(96ddb20)41;IC=1;[client_corr]TRUE;
+  red_post:
+ (0)V=41:mode@(1);(96dbf08)41;IC=1;[dispatcher]96dbd78;
+   (1)V=56:mode@(2);(96dbd78)41;IC=1;[client_idle]TRUE;
+
+
+-----------------------------------------------
+++++(SYNC XTION 10 with 2 parties, status 2)+++++++++++++++++++++++++
+ec_rep[MODL]=-1, ec_rep[SPEC]=-1
+  0: (p1:x4) when ?u (dispatcher@(1)) may ;
+  1: (p2:x10) when !u (client_inco@(2)) may goto client_idle;
+  0 quantified sync variables: 
+    
+  0 fairness checks: 
+  red_events:
+ (0)V=33:u@(1);96ec528;41;FALSE-->FALSE;TRUE-->(96ec4f8);
+   (1)V=34:c@(1);96ec4f8;41;FALSE-->(96ec4c8);TRUE-->FALSE;
+     (2)V=35:f@(1);96ec4c8;41;FALSE-->(96ec498);TRUE-->FALSE;
+       (3)V=36:r@(1);96ec498;41;FALSE-->(96ec468);TRUE-->FALSE;
+         (4)V=37:vote@(1);96ec468;41;FALSE-->(96ec438);TRUE-->FALSE;
+           (5)V=38:req@(1);96ec438;41;FALSE-->(96ec408);TRUE-->FALSE;
+             (6)V=48:u@(2);96ec408;41;FALSE-->FALSE;TRUE-->(96ed090);
+               (7)V=49:c@(2);96ed090;41;FALSE-->(96ed060);TRUE-->FALSE;
+                 (8)V=50:f@(2);96ed060;41;FALSE-->(96ecec8);TRUE-->FALSE;
+                   (9)V=51:r@(2);96ecec8;41;FALSE-->(96ece98);TRUE-->FALSE;
+                     (10)V=52:vote@(2);96ece98;41;FALSE-->(96e9600);TRUE-->FALSE;
+                       (11)V=53:req@(2);96e9600;41;FALSE-->(96e95e0);TRUE-->FALSE;
+                         (12)V=63:u@(3);96e95e0;41;FALSE-->(96e95b0);TRUE-->FALSE;
+                           (13)V=64:c@(3);96e95b0;41;FALSE-->(96e9828);TRUE-->FALSE;
+                             (14)V=65:f@(3);96e9828;41;FALSE-->(96e9558);TRUE-->FALSE;
+                               (15)V=66:r@(3);96e9558;41;FALSE-->(96ec8f8);TRUE-->FALSE;
+                                 (16)V=67:vote@(3);96ec8f8;41;FALSE-->(96ecb40);TRUE-->FALSE;
+                                   (17)V=68:req@(3);96ecb40;41;FALSE-->TRUE;TRUE-->FALSE;
+  red_trigger:
+ (0)V=41:mode@(1);(96edac0)41;IC=1;[dispatcher]96ddc00;
+   (1)V=56:mode@(2);(96ddc00)41;IC=1;[client_inco]TRUE;
+  red_post:
+ (0)V=41:mode@(1);(96dbf08)41;IC=1;[dispatcher]96dbd78;
+   (1)V=56:mode@(2);(96dbd78)41;IC=1;[client_idle]TRUE;
+
+
+-----------------------------------------------
+
+
+------------------------------------------
+The threshold for synchornous transition bulk execution is 3.
+The decision diagram for synchronous transition bulk execution is:
+ (0), FALSE
+
+------------------------------------------
+The initial condition decision diagram:
+ (0)V=16:count_fault;96dc340;41;IC=1;[0,0]96dc300;
+   (1)V=18:count_run;96dc300;41;IC=1;[5,5]96dc2c0;
+     (2)V=20:count_corr;96dc2c0;41;IC=1;[0,0]96dc280;
+       (3)V=22:count_inco;96dc280;41;IC=1;[0,0]96dc240;
+         (4)V=41:mode@(1);(96dc240)41;IC=1;[dispatcher]96dc170;
+           (5)V=56:mode@(2);(96dc170)41;IC=1;[client_idle]96dc118;
+             (6)V=71:mode@(3);(96dc118)41;IC=1;[server_idle]TRUE;
