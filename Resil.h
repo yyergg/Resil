@@ -26,6 +26,7 @@ public:
 
 class GraphEdge{
 public:
+  int index;
   int type;
   int sxi;
   vector<string> synchronizers;

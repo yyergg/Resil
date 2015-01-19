@@ -28,13 +28,11 @@ void printGameGraph(){
   for(i=0;i<nodes.size();i++){
     cout<<i<<": "<<red_diagram_string(nodes[i]->red)<<endl;
     for(j=0;j<nodes[i]->outs.size();j++){
-      cout<<"[";
-      /*
-      for(k=0;k<nodes[i]->outs[j]->selectionArray.size();k++){
-        cout<<nodes[i]->outs[j]->selectionArray[k];
-        if(k<nodes[i]->outs[j]->selectionArray.size()-1){cout<<",";}
+      cout<<"<"<<nodes[i]->outs[j]->index<<","<<nodes[i]->outs[j]->sxi<<">"<<"[";
+      for(k=0;k<nodes[i]->outs[j]->synchronizers.size();k++){
+        cout<<nodes[i]->outs[j]->synchronizers[k];
+        if(k<nodes[i]->outs[j]->synchronizers.size()-1){cout<<",";}
       }
-      */
       cout<<"]-->"<<red_diagram_string(nodes[nodes[i]->outs[j]->dst->index]->red)<<endl;
     }
   }
@@ -125,14 +123,16 @@ void extractModelFromFile(GraphNode* root){
     if(red_and(tempRed, path) != red_false()){
       GraphEdge* tempEdge = new GraphEdge;
       GraphNode* tempNode;
+      tempEdge->index=edges.size();
       edges.push_back(tempEdge);
+      cout<<tempEdge->index<<" edge sxi "<<i<<endl;
       tempEdge->sxi = i;
       if(mapNode.find(tempString.assign(red_diagram_string(tempRed))) == mapNode.end()){
         tempNode = new GraphNode;
         tempEdge->src = root;
         tempEdge->dst = tempNode;
         root->outs.push_back(tempEdge);
-        tempNode->index = nodes.size() + 1; 
+        tempNode->index = nodes.size(); 
         tempNode->red = tempRed;
         tempNode->ins.push_back(tempEdge);
         nodes.push_back(tempNode);
@@ -142,7 +142,6 @@ void extractModelFromFile(GraphNode* root){
       }
       else{
         tempNode = mapNode[tempString.assign(red_diagram_string(tempRed))];
-        tempEdge = new GraphEdge;
         tempEdge->src = root;
         tempEdge->dst = tempNode;
         root->outs.push_back(tempEdge);
@@ -156,20 +155,16 @@ void extractModelFromFile(GraphNode* root){
 
 void labelSynchronizers(){
   int i, j, k;
-  cout<<"p="<<red_query_process_count()<<endl;
   for(i=0;i<edges.size();i++){
-    cout<<i<<" "<<edges[i]->sxi<<endl;
-    vector<string> synchronizers;
+    cout<<"sxi="<<edges[i]->sxi<<endl;
     for(j=0;j<red_query_process_count();j++){
-      synchronizers.push_back("-");
+      edges[i]->synchronizers.push_back("-");
     }
     for(j=0;j<red_query_sync_xtion_party_count(RED_USE_DECLARED_SYNC_XTION,edges[i]->sxi);j++){
       int p = red_query_sync_xtion_party_process(RED_USE_DECLARED_SYNC_XTION,edges[i]->sxi,j);
       int xi = red_query_sync_xtion_party_xtion(RED_USE_DECLARED_SYNC_XTION,edges[i]->sxi,j);
-      cout<<p<<","<<xi<<" "<<red_query_xtion_attribute(xi, RED_XTION_SYNC_COUNT)<<" ";
-      synchronizers[p-1] = red_query_xtion_attribute(xi, RED_XTION_SYNC_COUNT);
+      edges[i]->synchronizers[p-1] = red_query_string_xtion_sync(xi,0);
     }
-    cout<<endl;
   }
 }
 
@@ -194,7 +189,11 @@ int main(int argc, char** argv){
 
   extractModelFromFile(root);
   labelSynchronizers();
-  //printGameGraph();
+  for(i=0;i<edges.size();i++){
+    edges[i]->index = i;
+    cout<<edges[i]->sxi<<endl;
+  } 
+  printGameGraph();
 }
 
 int cplugin_proc(int module_index, int proc_index) {
