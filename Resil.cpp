@@ -23,6 +23,31 @@ int nodeCount = 0;
 int sxiCount = 0;
 
 
+vector<bool> sfrch(vector<bool> &G){
+  int i,j;
+  vector<bool> result=G;
+  bool somethingChanged=true;
+  while(somethingChanged){
+    for(i=0;i<result.size();i++){  
+      if(result[i]){
+        bool hasControllableBackEdge=false;
+        for(j=0;j<nodes[i]->outs.size();j++){
+          if(nodes[i]->outs[j]->synchronizers[0].compare("!c")==0 && result[nodes[i]->outs[j]->dst->index]){
+            hasControllableBackEdge=true;
+            break;
+          }
+        }
+        if(!hasControllableBackEdge){
+          result[i]=false;
+          somethingChanged=true;
+        }
+      }
+    }
+  }
+  return result;
+}
+
+
 void printGameGraph(){
   int i,j,k;
   for(i=0;i<nodes.size();i++){
@@ -38,6 +63,74 @@ void printGameGraph(){
   }
 }
 
+
+bool isDifferent(vector<bool> &x, vector<bool> &y){
+  int i;
+  for(i=0;i<x.size();i++){
+    if(x[i]!=y[i]){
+      return true;
+    }
+  }
+  return false;
+}
+
+
+vector<bool> findDifference(vector<bool> &L, vector<bool> &frag){
+  int i;
+  vector<bool> result;
+  for(i=0;i<L.size();i++){
+    if(L[i] && !frag[i]){
+      result.push_back(true);
+    }
+    else{
+      result.push_back(false);
+    }
+  }
+  return result;
+}
+
+
+vector<bool> findFrag(vector<bool> &A){
+  int i,j;
+  vector<bool> result;
+  for(i=0;i<A.size();i++){
+    result.push_back(!A[i]);
+  }
+  for(i=0;i<result.size();i++){
+    if(!result[i]){
+      for(j=0;j<nodes[i]->outs.size();j++){
+        if((nodes[i]->outs[j]->synchronizers[0].compare("!u")==0 || nodes[i]->outs[j]->synchronizers[0].compare("!f")==0) && !A[nodes[i]->outs[j]->dst->index]){
+          result[i]=true;
+        }
+      }
+    }
+  }
+  return result;
+}
+
+vector<bool> findCone(vector<bool> &L, vector<bool> &G){
+  int i,j,k;
+  vector<bool> result;
+  result = G;
+  bool somethingChanged = true;
+  while(somethingChanged){
+    somethingChanged=false;
+    for(i=0;i<L.size();i++){
+      if(L[i] && !result[i]){
+        bool hasControllableBackEdge=false;
+        for(j=0;j<nodes[i]->outs.size();j++){
+          if(nodes[i]->outs[j]->synchronizers[0].compare("!c")==0 && result[nodes[i]->outs[j]->dst->index]){
+            hasControllableBackEdge=true;
+	    result[i] = true;
+            somethingChanged=true;
+            break;
+          }
+        }
+      }
+    }
+  } 
+  return result;
+}
 
 vector<bool> findNonFailureState(){
   int i = 0;
@@ -127,7 +220,6 @@ void labelSynchronizers(){
 int main(int argc, char** argv){
   int i, j;
 
-
   red_begin_session(RED_SYSTEM_TIMED, argv[1], -1); 
     //-1 == default(process number)
   red_input_model(argv[1], RED_REFINE_GLOBAL_INVARIANCE);
@@ -145,11 +237,38 @@ int main(int argc, char** argv){
   extractModelFromFile(root);
   labelSynchronizers();
   printGameGraph();
-  vector<bool> result;
-  result = findNonFailureState();
+  vector<bool> result = findNonFailureState();
+  vector<bool> L = result;
+  vector<bool> A = findCone(L,result);
   
+  for(i=0;i<atoi(argv[2]);i++){
+    cout<<"A"<<i<<": ";
+    for(j=0;j<A.size();j++){
+      cout<<A[j]<<" ";
+    }
+    cout<<endl;
+    
+    vector<bool> frag = findFrag(A);
+    cout<<"frag"<<i<<": ";
+    for(j=0;j<frag.size();j++){
+      cout<<frag[j]<<" ";
+    }
+    cout<<endl;
 
-
+    vector<bool> nextL=findDifference(L,frag);
+    cout<<"L"<<i+1<<": ";
+    for(j=0;j<nextL.size();j++){
+      cout<<nextL[j]<<" ";
+    }
+    cout<<endl;
+    if(isDifferent(L,nextL)){
+      L = nextL;
+    }
+    else{
+      cout<<"Fixed point of L reached"<<endl;
+      break;
+    }
+  }
 }
 
 int cplugin_proc(int module_index, int proc_index) {
