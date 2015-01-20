@@ -39,67 +39,22 @@ void printGameGraph(){
 }
 
 
-/*
-vector<GraphNode*> intersection(vector<GraphNode*> graph1, vector<GraphNode*> graph2){
-  int i,j;
-  vector<GraphNode*> newGraph;
-  for(i=0;i<graph1.size();i++){
-    for(j=0;j<graph2.size();j++){
-      if(graph1[i]==graph2[j]){
-        newGraph.push_back(graph1[i]);
+vector<bool> findNonFailureState(){
+  int i = 0;
+  int j = 0;
+  int k = 0;
+  vector<bool> result;
+  for(i=0;i<nodes.size();i++){
+    result.push_back(true);
+    for(j=0;j<nodes[i]->ins.size();j++){
+      if(nodes[i]->ins[j]->synchronizers[0].compare("!f")==0){
+        result[i] = false;
+        break;
       }
     }
   }
-  return newGraph;
+  return result;
 }
-
- 
-vector<GraphNode*> sfrch_k(vector<GraphNode*> graph, vector<bool> riskLabel, int edgeType){
-  int i;
-  vector<GraphNode*> L;
-  for(i=0;i<k+1;i++){
-    next_L(L);
-  }
-  return sfrch_0(intersection(graph,L));
-}
-
-void sfrch_0(vector<GraphNode*> graph, vector<bool> riskLabel, int edgeType){
-
-}
-
-void cone(){
-
-}
-
-void frag(){
-
-}
-
-void next_L(vector<GraphNode*> &L){
-
-}
-
-void readModel(char* infileName, vector<GraphNode*> &Nodes, vector<GraphEdge*> &Edges){
-  red_begin_session(RED_SYSTEM_TIMED, argv[1], -1); 
-    //-1 == default(process number)
-  red_input_model(argv[1], RED_REFINE_GLOBAL_INVARIANCE);
-  red_set_sync_bulk_depth(10); 
-    //number of transitions can be involve into a synchronize transition
-  TCL_Game_Node* root;
-  root=new TCL_Game_Node;
-  root->index= nodeCount;
-  root->red=red_query_diagram_initial();  
-  //Initial root for the model
-  
-  Nodes.push_back(root);  nodeCount++;
-  node_map[temp_string.assign(red_diagram_string(root->red))]=root->index;
-  //Add root into list
-    
-  path=red_query_diagram_enhanced_global_invariance();
-  sxiCount=red_query_sync_xtion_count(RED_USE_DECLARED_SYNC_XTION); 
-  //number of synchronize transitions in the model
-}
-*/
 
 void extractModelFromFile(GraphNode* root){
 //  cout<<root->index<<": "<<red_diagram_string(root->red)<<endl;
@@ -189,11 +144,12 @@ int main(int argc, char** argv){
 
   extractModelFromFile(root);
   labelSynchronizers();
-  for(i=0;i<edges.size();i++){
-    edges[i]->index = i;
-    cout<<edges[i]->sxi<<endl;
-  } 
   printGameGraph();
+  vector<bool> result;
+  result = findNonFailureState();
+  
+
+
 }
 
 int cplugin_proc(int module_index, int proc_index) {
