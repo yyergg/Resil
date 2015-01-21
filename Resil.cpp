@@ -99,7 +99,8 @@ vector<bool> findFrag(vector<bool> &A){
   for(i=0;i<result.size();i++){
     if(!result[i]){
       for(j=0;j<nodes[i]->outs.size();j++){
-        if((nodes[i]->outs[j]->synchronizers[0].compare("!u")==0 || nodes[i]->outs[j]->synchronizers[0].compare("!f")==0) && !A[nodes[i]->outs[j]->dst->index]){
+        if((nodes[i]->outs[j]->synchronizers[0].compare("!u")==0 |\
+| nodes[i]->outs[j]->synchronizers[0].compare("!f")==0) && !A[nodes[i]->outs[j]->dst->index]){
           result[i]=true;
         }
       }
