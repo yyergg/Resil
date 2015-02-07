@@ -4,7 +4,6 @@ global synchronizer
   u, // uncontrollable 0
   c, // controllable 1
   f, // fault detection
-  r, // recovery complete
   vote, // incorrect ballot from the fault processors
   req;  // request by the client to vote. 
 
@@ -17,7 +16,6 @@ global discrete
 
 mode dispatcher(true){
   when !c (true) may ;
-  when !r (true) may ;
   when !f (true) may ; 
   when !u (true) may ;
 }
@@ -50,7 +48,7 @@ mode client_inco (true) {
 mode server_idle (true) {
   when ?f (count_run > 0 && count_fault < clientCount) 
     may count_run--1; count_fault++1;  
-  when ?r (count_run < clientCount && count_fault > 0) 
+  when ?c (count_run < clientCount && count_fault > 0) 
     may count_run++1; count_fault--1;  
 
   when ?req (true) 
@@ -60,7 +58,7 @@ mode server_idle (true) {
 mode server_op (true) { 
   when ?f (count_run > 0 && count_fault < clientCount) 
     may count_run--1; count_fault++1;  
-  when ?r (count_run < clientCount && count_fault > 0) 
+  when ?c (count_run < clientCount && count_fault > 0) 
     may count_run++1; count_fault--1;  
 
   when ?c !vote (true) 
