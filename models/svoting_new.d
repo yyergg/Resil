@@ -1,5 +1,5 @@
 process count=3;
-#define clientCount 5
+#define clientCount 100
 global synchronizer 
   u, // uncontrollable 0
   c, // controllable 1
@@ -23,7 +23,7 @@ mode dispatcher(true){
 mode client_check (true) { 
   when ?u (count_corr > (clientCount/2)) 
     may count_corr = 0; count_inco = 0; goto client_corr;     
-  when ?u (count_inco > (clientCount/2)) 
+  when ?f (count_inco > (clientCount/2)) 
     may count_corr = 0; count_inco = 0; goto client_inco;     
 }
 
@@ -46,7 +46,7 @@ mode client_inco (true) {
 } 
 
 mode server_idle (true) {
-  when ?f (count_run > 0 && count_fault < clientCount) 
+  when ?u (count_run > 0 && count_fault < clientCount) 
     may count_run--1; count_fault++1;  
   when ?c (count_run < clientCount && count_fault > 0) 
     may count_run++1; count_fault--1;  
@@ -56,7 +56,7 @@ mode server_idle (true) {
 } 
 
 mode server_op (true) { 
-  when ?f (count_run > 0 && count_fault < clientCount) 
+  when ?u (count_run > 0 && count_fault < clientCount) 
     may count_run--1; count_fault++1;  
   when ?c (count_run < clientCount && count_fault > 0) 
     may count_run++1; count_fault--1;  

@@ -4,3 +4,5 @@ Resil: Resil.cpp Resil.h
 clean:
 	find . -name '*.o' -type f -exec rm -f {} \;
 	rm Resil
+	rm ./models/*.ir
+	rm ./models/*.redtab

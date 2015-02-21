@@ -50,6 +50,7 @@ vector<bool> sfrch(vector<bool> &G){
 
 void printGameGraph(){
   int i,j,k;
+  cout<<endl;
   for(i=0;i<nodes.size();i++){
     cout<<i<<": "<<red_diagram_string(nodes[i]->red)<<endl;
     for(j=0;j<nodes[i]->outs.size();j++){
@@ -174,7 +175,7 @@ void extractModelFromFile(GraphNode* root){
       GraphNode* tempNode;
       tempEdge->index=edges.size();
       edges.push_back(tempEdge);
-      cout<<tempEdge->index<<" edge sxi "<<i<<endl;
+      // cout<<tempEdge->index<<" edge sxi "<<i<<endl;
       tempEdge->sxi = i;
       if(mapNode.find(tempString.assign(red_diagram_string(tempRed))) == mapNode.end()){
         tempNode = new GraphNode;
@@ -205,7 +206,7 @@ void extractModelFromFile(GraphNode* root){
 void labelSynchronizers(){
   int i, j, k;
   for(i=0;i<edges.size();i++){
-    cout<<"sxi="<<edges[i]->sxi<<endl;
+    // cout<<"sxi="<<edges[i]->sxi<<endl;
     for(j=0;j<red_query_process_count();j++){
       edges[i]->synchronizers.push_back("-");
     }
