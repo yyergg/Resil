@@ -1,5 +1,5 @@
 process count=3;
-#define clientCount 100
+#define clientCount 250
 global synchronizer 
   u, // uncontrollable 0
   c, // controllable 1

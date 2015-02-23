@@ -1,7 +1,7 @@
-process count = 6;
+process count = 11;
 
 //(#PS-2-1)/3
-#define BOUND_FAULT 1
+#define BOUND_FAULT 2
 
 global synchronizer 
   c, 

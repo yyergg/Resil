@@ -238,11 +238,12 @@ int main(int argc, char** argv){
 
   extractModelFromFile(root);
   labelSynchronizers();
-  printGameGraph();
+  //printGameGraph();
+  cout<<endl<<nodes.size()<<" "<<edges.size()<<endl;
   vector<bool> result = findNonFailureState();
   vector<bool> L = result;
   vector<bool> A = findCone(L,result);
-  
+  /* 
   for(i=0;i<atoi(argv[2]);i++){
     cout<<"A"<<i<<": ";
     for(j=0;j<A.size();j++){
@@ -271,6 +272,7 @@ int main(int argc, char** argv){
       break;
     }
   }
+  */
 }
 
 int cplugin_proc(int module_index, int proc_index) {
